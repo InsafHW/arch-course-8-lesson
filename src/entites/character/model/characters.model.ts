@@ -1,8 +1,6 @@
 import type { Character } from "./types";
 
 export class CharactersModel {
-  private constructor() {}
-
   static clearCharacters(characters: Character[]) {
     for (const char of characters) {
       char.isFavorite.set(false);
