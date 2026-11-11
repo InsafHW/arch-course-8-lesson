@@ -1,4 +1,4 @@
-import { InjectionToken } from "@needle-di/core";
+import {type ServiceIdentifier} from "inversify";
 
 export type KeyValueStorage = {
   get<T>(key: string): Promise<T | null>;
@@ -7,9 +7,8 @@ export type KeyValueStorage = {
   clear(): Promise<void>;
 };
 
-export const KEY_VALUE_STORAGE_TOKEN = new InjectionToken<KeyValueStorage>(
-  "KEY_VALUE_STORAGE",
-);
+export const KEY_VALUE_STORAGE_TOKEN: ServiceIdentifier<KeyValueStorage>
+    = Symbol.for("KEY_VALUE_STORAGE");
 
 export type StorageOptions = {
   prefix?: string;

@@ -1,18 +1,19 @@
-import { type FavoriteCharactersRepository } from "./types";
-import { type KeyValueStorage } from "@/shared/storages/types";
+import {type FavoriteCharactersRepository} from "./types";
+import {KEY_VALUE_STORAGE_TOKEN, type KeyValueStorage} from "@/shared/storages/types";
 import type { Character } from "../model/types";
-import { inject } from "@needle-di/core";
-import { KEY_VALUE_STORAGE_TOKEN } from "@/shared/storages/types";
+import {inject, injectable} from "inversify";
 
 const FAVORITES_KEY = "favorite-characters";
 
+@injectable()
 export class FavoritesCharactersStorage
   implements FavoriteCharactersRepository
 {
   favorites: Character["id"][] = [];
 
   constructor(
-    private readonly storage: KeyValueStorage = inject(KEY_VALUE_STORAGE_TOKEN),
+    @inject(KEY_VALUE_STORAGE_TOKEN)
+    private readonly storage: KeyValueStorage
   ) {
     this.setInitialValue();
   }

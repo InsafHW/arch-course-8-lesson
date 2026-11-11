@@ -1,17 +1,21 @@
 import { type Character } from "../../model/types";
-import { inject, injectable } from "@needle-di/core";
 import {
-  CHARACTERS_REPOSITORY_TOKEN,
-  FAVORITES_REPOSITORY_TOKEN,
+    CHARACTERS_REPOSITORY_TOKEN,
+    type CharactersRepository,
+    type FavoriteCharactersRepository,
+    FAVORITES_REPOSITORY_TOKEN,
 } from "../../repository/types";
 import { CharactersModel } from "../../model/characters.model";
 import { CharactersBuilder } from "../../model/characters.builder";
+import {inject, injectable} from "inversify";
 
 @injectable()
 export class CharactersService {
   constructor(
-    private readonly charactersRepo = inject(CHARACTERS_REPOSITORY_TOKEN),
-    private readonly favoritesRepo = inject(FAVORITES_REPOSITORY_TOKEN),
+    @inject(CHARACTERS_REPOSITORY_TOKEN)
+    private readonly charactersRepo: CharactersRepository,
+    @inject(FAVORITES_REPOSITORY_TOKEN)
+    private readonly favoritesRepo: FavoriteCharactersRepository,
   ) {}
 
   async getCharacters(name: string = "") {

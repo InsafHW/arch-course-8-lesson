@@ -1,11 +1,14 @@
 import { type Character } from "./model/types";
 import { atom, computed, sleep, withAsyncData, wrap } from "@reatom/core";
-import { inject, injectable } from "@needle-di/core";
 import { CharactersService } from "./services/charactersService/characters.service";
+import {inject, injectable} from "inversify";
 
 @injectable()
 export class CharactersStore {
-  constructor(private readonly charactersService = inject(CharactersService)) {}
+  constructor(
+      @inject(CharactersService)
+      private readonly charactersService: CharactersService
+  ) {}
 
   search = atom("");
 

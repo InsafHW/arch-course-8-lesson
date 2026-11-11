@@ -5,13 +5,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [
-    react({
-      babel: {
-        plugins: [
-          ["@babel/plugin-proposal-decorators", { version: "2023-11" }],
-        ],
-      },
-    }),
+    react(),
     tailwindcss(),
   ],
   resolve: {

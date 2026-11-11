@@ -2,11 +2,11 @@ import { CharacterList } from "@/entites/character/ui/characterList.component";
 import { CharacterCard } from "@/entites/character/ui/characterCard.component";
 import { Button } from "@/shared/ui/button";
 import { reatomComponent } from "@reatom/react";
-import { useService } from "@/app/container/container";
 import { CharactersStore } from "@/entites/character/characters.store";
+import {useContainerInjection} from "@/app/container/ContainerProvider";
 
 export const FavoritesPage = reatomComponent(() => {
-  const charactersStore = useService(CharactersStore);
+  const charactersStore = useContainerInjection(CharactersStore);
 
   const favoriteCharacters = charactersStore.favoriteCharacters();
 
