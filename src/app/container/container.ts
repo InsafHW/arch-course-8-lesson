@@ -12,5 +12,6 @@ export const container = new Container();
 container.bind(CHARACTERS_REPOSITORY_TOKEN).to(CharacterApi)
 container.bind(FAVORITES_REPOSITORY_TOKEN).to(FavoritesCharactersStorage)
 container.bind(KEY_VALUE_STORAGE_TOKEN).to(LocalStoragePersister)
-container.bind(CharactersStore).toSelf()
-container.bind(CharactersService).toSelf()
+
+container.bind(CharactersStore).toSelf().inSingletonScope()
+container.bind(CharactersService).toSelf().inSingletonScope()
