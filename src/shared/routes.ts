@@ -7,6 +7,10 @@ export const ROUTES = {
     path: "/favorites",
     label: "Favorites",
   },
+    ANALYTICS: {
+        path: "/analytics",
+        label: "Analytics",
+    }
 } as const;
 
 export const getRoutes = () => Object.values(ROUTES);

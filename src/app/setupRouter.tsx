@@ -3,6 +3,7 @@ import { BaseLayout } from "./baseLayout.component";
 import { ROUTES } from "@/shared/routes";
 import { CharactersPage } from "@/pages/CharactersPage/characters.page";
 import { FavoritesPage } from "@/pages/FavoritesPage/favorites.page";
+import {AnalyticsPage} from "@/pages/AnalyticsPage/analytics.page";
 
 export const setupRouter = () => {
   const router = createBrowserRouter([
@@ -11,6 +12,7 @@ export const setupRouter = () => {
       children: [
         { index: true, element: <CharactersPage /> },
         { path: ROUTES.FAVORITES.path, element: <FavoritesPage /> },
+        { path: ROUTES.ANALYTICS.path, element: <AnalyticsPage /> },
       ],
     },
   ]);
