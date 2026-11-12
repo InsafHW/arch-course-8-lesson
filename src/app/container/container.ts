@@ -6,6 +6,7 @@ import { CHARACTERS_REPOSITORY_TOKEN, FAVORITES_REPOSITORY_TOKEN } from "@/entit
 import { KEY_VALUE_STORAGE_TOKEN } from "@/shared/storages/types";
 import {CharactersStore} from "@/entites/character/characters.store";
 import {CharactersService} from "@/entites/character/services/charactersService/characters.service";
+import {AnalyticsPageStore} from "@/pages/AnalyticsPage/analyticsPage.store";
 
 export const container = new Container();
 
@@ -15,3 +16,4 @@ container.bind(KEY_VALUE_STORAGE_TOKEN).to(LocalStoragePersister)
 
 container.bind(CharactersStore).toSelf().inSingletonScope()
 container.bind(CharactersService).toSelf().inSingletonScope()
+container.bind(AnalyticsPageStore).toSelf()

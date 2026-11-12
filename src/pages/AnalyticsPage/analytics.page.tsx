@@ -1,35 +1,19 @@
 import {Tabs, TabsList, TabsTrigger} from "@/shared/ui/tabs";
-import {useMemo, useState} from "react";
+import {AnalyticsPageStore} from "./analyticsPage.store";
+import {useContainerInjection} from "../../app/container/ContainerProvider";
+import {reatomComponent} from "@reatom/react";
+import {AnalyticsContent} from "./analytics.content";
 
-type Tab =
-    | 'locations'
-    | 'episodes'
-    | 'characters'
-
-function useTabs() {
-    const [tab, setTab] = useState<Tab>('locations');
-
-    const availableTabs = useMemo<{id: Tab, label: string}[]>(() => [
-        {id: 'locations', label: 'Locations'},
-        {id: 'episodes', label: 'Episodes'},
-        {id: 'characters', label: 'Characters'},
-    ], [])
-
-    return {
-        tab,
-        setTab,
-        availableTabs,
-    }
-}
-
-export const AnalyticsPage = () => {
-    const {tab, setTab, availableTabs} = useTabs()
+export const AnalyticsPage = reatomComponent(() => {
+    const {
+        setTab, selectedTab, availableTabs,
+    } = useContainerInjection(AnalyticsPageStore)
 
     return (
         <div className="flex w-full flex-col gap-6 mt-5">
-            <Tabs value={tab}>
+            <Tabs value={selectedTab()}>
                 <TabsList>
-                    {availableTabs.map((tab) => (
+                    {availableTabs().map((tab) => (
                         <TabsTrigger
                             key={tab.id}
                             value={tab.id}
@@ -40,9 +24,7 @@ export const AnalyticsPage = () => {
                     ))}
                 </TabsList>
             </Tabs>
-            <div>
-                Content of: {tab}
-            </div>
+            <AnalyticsContent tab={selectedTab()} />
         </div>
     );
-};
+});
