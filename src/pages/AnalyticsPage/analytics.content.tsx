@@ -9,7 +9,12 @@ import {EpisodesTableInjector} from "./modules/episodes/episodesTable.injector";
 import {EpisodesTableStore} from "./modules/episodes/episodesTable.store";
 import {EpisodesTableService} from "./modules/episodes/episodesTable.service";
 import {EpisodeApi} from "@/entites/episode/repository/episodes.api";
+import {LocationApi} from "@/entites/location/repository/localtion.api";
 import {EpisodesTableEntry} from "./modules/episodes/episodesTable.entry";
+import {LocationsTableInjector} from "./modules/locations/locationsTable.injector";
+import {LocationsTableEntry} from "./modules/locations/locationsTable.entry";
+import {LocationsTableStore} from "./modules/locations/locationsTable.store";
+import {LocationsTableService} from "./modules/locations/locationsTable.service";
 
 export const AnalyticsContent = ({tab}: {tab: Tab}) => {
     const content = useMemo(() => {
@@ -35,7 +40,15 @@ export const AnalyticsContent = ({tab}: {tab: Tab}) => {
                     </EpisodesTableInjector>
                 )
             case "locations":
-                return 'Locations'
+                return (
+                    <LocationsTableInjector value={{
+                        locationsTableStore: new LocationsTableStore(
+                            new LocationsTableService(new LocationApi())
+                        )
+                    }}>
+                        <LocationsTableEntry />
+                    </LocationsTableInjector>
+                )
             default:
                 return null
         }
