@@ -4,7 +4,12 @@ import {CharactersTableEntry} from "./modules/characters/charactersTable.entry";
 import {CharactersTableInjector} from "./modules/characters/charactersTable.injector";
 import {CharactersTableStore} from "./modules/characters/charactersTable.store";
 import {CharactersTableService} from "./modules/characters/charactersTable.service";
-import {CharacterApi} from "../../entites/character/repository/character.api";
+import {CharacterApi} from "@/entites/character/repository/character.api";
+import {EpisodesTableInjector} from "./modules/episodes/episodesTable.injector";
+import {EpisodesTableStore} from "./modules/episodes/episodesTable.store";
+import {EpisodesTableService} from "./modules/episodes/episodesTable.service";
+import {EpisodeApi} from "@/entites/episode/repository/episodes.api";
+import {EpisodesTableEntry} from "./modules/episodes/episodesTable.entry";
 
 export const AnalyticsContent = ({tab}: {tab: Tab}) => {
     const content = useMemo(() => {
@@ -20,7 +25,15 @@ export const AnalyticsContent = ({tab}: {tab: Tab}) => {
                     </CharactersTableInjector>
                 )
             case "episodes":
-                return 'Episodes'
+                return (
+                    <EpisodesTableInjector value={{
+                        episodesTableStore: new EpisodesTableStore(
+                            new EpisodesTableService(new EpisodeApi())
+                        )
+                    }}>
+                        <EpisodesTableEntry />
+                    </EpisodesTableInjector>
+                )
             case "locations":
                 return 'Locations'
             default:
